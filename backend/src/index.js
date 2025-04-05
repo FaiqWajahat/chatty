@@ -26,6 +26,11 @@ app.use(
   })
 );
 
+const port = process.env.PORT || 5000;
+
+// connecting to database here
+dbConnection();
+
 
 
 // setting up routes here
@@ -41,10 +46,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 // setting up port
-const port = process.env.PORT || 5000;
-
-// connecting to database here
-dbConnection();
 
 // listening to port here
 server.listen(port, () => {
