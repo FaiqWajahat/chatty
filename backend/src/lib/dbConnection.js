@@ -4,7 +4,7 @@ env.config();
 
 
 const dbConnection= async()=>{
-    const connectionUrl = process.env.DB_CONNECTION_URL;
+    const connectionUrl = process.env.MONGODB_URI;
    
   
     try {

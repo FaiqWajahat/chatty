@@ -5,7 +5,7 @@ dotenv.config();
 const settingToken = (payLoad, res) => {
   try {
     // Validate JWT secret key
-    if (!process.env.JWT_SECRET_KEY) {
+    if (!process.env.JWT_SECRET) {
       return res.status(500).json({
         success: false,
         message: "JWT secret key is missing",
@@ -13,7 +13,7 @@ const settingToken = (payLoad, res) => {
     }
 
     // Creating a token
-    const jwtToken = jwt.sign(payLoad, process.env.JWT_SECRET_KEY, {
+    const jwtToken = jwt.sign(payLoad, process.env.JWT_SECRET, {
       expiresIn: "7d",
     });
 
