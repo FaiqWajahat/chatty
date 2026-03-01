@@ -5,7 +5,7 @@ import {io} from "socket.io-client";
 
 // Utility function for delay
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const BASE_URL = import.meta.env.MODE === "development" ? "http://localhost:5000" : "/";
+const BASE_URL = import.meta.env.MODE === "development" ? import.meta.env.VITE_SOCKET_URL : "/";
 const useAuthStore = create((set,get) => ({
   authUser: null,
   isSigningUp: false,

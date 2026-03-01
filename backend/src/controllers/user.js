@@ -12,7 +12,7 @@ app.use(express.json());
 
 // Signup function
 const signupController = async (req, res) => {
-  const { email, fullName, password } = req.body;
+  const { email, fullName, password } =  req.body;
 
   try {
     const userExists = await userModel.findOne({ email });

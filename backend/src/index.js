@@ -48,6 +48,10 @@ if (process.env.NODE_ENV === "production") {
 // setting up port
 
 // listening to port here
-server.listen(port, () => {
-  console.log("Server is running on port" + port);
-});
+if (process.env.NODE_ENV !== "production") {
+  server.listen(port, () => {
+    console.log("Server is running on port " + port);
+  });
+}
+
+export default app;
