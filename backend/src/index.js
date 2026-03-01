@@ -21,7 +21,9 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: process.env.NODE_ENV === "production" ? process.env.FRONTEND_URL : "http://localhost:5173",
+    origin: function (origin, callback) {
+      return callback(null, origin || true);
+    },
     credentials: true,
   })
 );
