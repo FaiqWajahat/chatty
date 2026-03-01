@@ -27,8 +27,8 @@ const settingToken = (payLoad, res) => {
     // Sending cookie in response
     res.cookie("token", jwtToken, {
       httpOnly: true,
-      secure: process.env.NODE_ENV !== "development", 
-      sameSite: "strict",
+      secure: process.env.NODE_ENV !== "development",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
       maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
     });
 
@@ -36,10 +36,13 @@ const settingToken = (payLoad, res) => {
     
   } catch (err) {
     console.error("Error in setting token:", err);
-    res.status(500).json({
-      success: false,
-      message: "Internal server error",
-    });
+    console.error("JWT_SECRET available?", !!process.env.JWT_SECRET);
+    if (!res.headersSent) {
+      res.status(500).json({
+        success: false,
+        message: "Internal server error during token generation: " + err.message,
+      });
+    }
   }
 };
 

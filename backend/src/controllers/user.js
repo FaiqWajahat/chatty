@@ -72,8 +72,10 @@ const loginController = async (req, res) => {
    }
  
   } catch (error) {
-    console.error("Login error:", error);
-    res.status(500).json({ message: "User login failed", success: false, error: error.message });
+    console.error("Login Error Catch Block Reached:", error);
+    if (!res.headersSent) {
+      res.status(500).json({ message: "User login failed", success: false, error: error.message || error.toString() });
+    }
   }
 };
 
@@ -82,7 +84,7 @@ const loginController = async (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production", 
-    sameSite: "strict",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
   });
 
   res.status(200).json({
